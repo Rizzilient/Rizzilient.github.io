@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+
+    ul { 
+        background-color: gray;
+        text-align: left;
+    }
+
+    h1{
+        text-align: center;
+    }
+
+    h2{
+        text-align: center;
+    }
+    
+</style>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sean Rizzo</title>
+
+
+    
+</head>
+
+<body>
+
+    <div class="topnav">
+        <ul>
+            <p>Navbar</p>
+            <a href="index.html">Lab 2</a>
+            <a href="lab 3.html">Lab 3</a>
+            <a href="lab 4.html">Lab 4</a>
+        </ul>
+    </div>
+
+    <script>
+        //pop-up alert
+        alert("Welcome to the store!")
+
+        //declare variables
+        var name = window.prompt("Please Enter Your name");
+        var item = window.prompt("Please enter your item");
+        var num = window.prompt("How many would you like?(Minimum is 1 and Maximum is 99)");
+
+        //sets date to use in if statement to find the
+        now = new Date();
+		hour = now.getHours();
+
+        /*var arrive = new Date();
+        arrive.setDate(arrive.getDate() + 7);*/     //new variable that contains date to signal when the customer can arrive
+
+        //now can be updated now that the hour has used it already, therefore arrive is no longer needed
+        now.setDate(now.getDate() + 7);
+
+        if (hour < 12) {
+			document.write("<h1> Good Morning ") //h1 for the bigger text
+		} else if (hour < 18) {
+			document.write("<h1> Good Afternoon ")
+		} else {
+			document.write("<h1> Good Evening ")
+		}
+		document.writeln(name + ",  Thank you for Ordering!")
+        
+
+        if(num > 1){//h2 for the smaller text
+            document.writeln("<h2> You ordered ", num, " ", item, "s.") //multiple items
+        }else{
+            document.writeln("<h2> You ordered ", num, " ", item, ".") //single item
+        }
+        
+        
+
+        document.writeln("<h2> Your order will arrive in 7 days. The date will be ", now);
+
+    </script>
+
+
+</body>
+
+</html>
