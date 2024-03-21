@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+    <style>
+    ul { 
+        background-color: gray;
+        text-align: center;
+    }
+
+    h1{
+        text-align: center;
+    }
+    </style>
+    <head> 
+        <title>User Registration</title>
+    </head>
+    <body>
+        <div class="topnav">
+            <ul>
+                <p>Navbar</p>
+                <a href="index.html">Lab 2</a>
+                <a href="lab 3.html">Lab 3</a>
+                <a href="lab 4.html">Lab 4</a>
+                <a href="lab5.html">Lab 5</a>
+            </ul>
+        </div>
+        <h1><b>Please Register Below:</b></h1>
+    </body>
+    
+    <div class = "container mt-5">
+        <!--HTML portion of the registration form where the ID's are set which is referred to in the JavaScript function getElementsById-->
+        <!--All variables are ented into the input statements in the final website-->
+        <form id = "registrationForm"> 
+            <div class = "form-group">
+                <label for = "first">First Name: </label>
+                <input type = "text" class = "form-control" id = "f" required>
+            </div>
+            <div class = "form-group">
+                <label for = "last">Last Name: </label>
+                <input type = "text" class = "form-control" id = "l" required>
+            </div>
+            <div class = "form-group">
+                <label for = "email">Email Address: </label>
+                <input type = "email" class = "form-control" id = "email" required>
+            </div>
+            <div class = "form-group">
+                <label for = "password">Password: </label>
+                <input type = "password" class = "form-control" id = "password" required>
+            </div>
+            <div class = "form-group">
+                <label for = "dob">Date of Birth: </label>
+                <input type = "date" class = "form-control" id = "dob" required>
+            </div>
+            <button type = "submit" class = "btn vrn-primary">Register</button>
+        </form>
+        <div id = "registrationResult" class = "mt-3"></div>
+    </div>
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(event){
+            event.preventDefault();
+            //References previosly defined ID's from lines 28 - 49
+            //Gets elements values to return 
+            const f = document.getElementById('f').value;
+            const l = document.getElementById('l').value;
+            const email = document.getElementById('email').value;
+            const pwd = document.getElementById('password').value;
+            const dob = document.getElementById('dob').value;
+            const special = /[?!]/.test(pwd);
+            if(!special){
+                //returns "Passwords must contain ! or ?" to the user if they do not meet the conditions set by the if statement.
+                //Needs to have a ! or ? in the password to be legal.
+                document.getElementById('registrationResult').innerHTML = '<div class = "alert alert-danger" role = "alert">Passwords must contain ! or ?</div>';
+                return;
+            }
+            //Sets the password to * when the result is returned so that the user cannot see the password and it cannot be stolen. 
+            const hp = '*'.repeat(pwd.length);
+
+
+            //Prints out to the screen all of the information that is collected. the $ symbol signals the box where the user will input their own information. 
+            document.getElementById('registrationResult').innerHTML = `
+            <div class = "alert alert-danger" role = "alert">
+                Registration Successful!
+                <u1>
+                    <li>First Name: ${f}</li>
+                    <li>Last Name: ${l}</li>
+                    <li>Email: ${email}</li>
+                    <li>Password: ${hp}</li>
+                    <li>Date of Birth: ${dob}</li>
+                </u1>
+            </div>
+            `;
+        }); //Gave me errors for like 10 mins because the parenthesis needed to end here and I ended it in the original start to this function.  
+    </script>
+</html>
