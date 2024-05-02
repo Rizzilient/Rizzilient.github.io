@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<style>
+    body{
+        background-color: lightgreen;
+        background-size: cover;
+    }
+    ul { 
+        background-color: seagreen;
+        text-align: center;
+        font-size: 20px
+    }
+    h1{
+        background-color: green;
+        text-align: center;
+    }
+    h2{
+        background-color: green;
+        text-align: center;
+    }
+    p{
+        background-color: rgb(23, 216, 110);
+        text-align: center;
+        font-size: 40px;
+    }
+    button{
+        text-align: center;
+        display: block;
+    }
+    label{
+        background-color: beige;
+    }
+</style>
+<head>
+    <title>Currency Information!</title>
+</head>
+<body>
+    <h1>Currency Information!</h1>
+    <div class="topnav">
+        <p>Options:</p>
+        <ul>
+            <a href="StocksHomePage.html">Home Page</a> 
+            <a href="stocks.html">Stock List</a> 
+        </ul>
+    </div>
+    <p>The stock market is a global market that impacts everyone in every single nation. That being said, it is important that all of the worlds markets maintain a steady and positive growth, as well as being conpatible with the world. When the world is all investing in different stock markets, currencies are exchanged and nations gain capital, also growing their own currency systems. This is one of the most important reasons that the stock market currencies are important to the world, and the stocks themselves. </p>
+    <!--Picture of a graoh of the American dollars value rising-->
+    <img src="Dollar.jpg" alt="Amateur increase in value of the American Dollar" width="700" height="400">
+    <div id = "search">
+        <label for = "input">Enter any stock symbol: </label>
+        <input type = "text" id = "input">
+        <!--Button to allow the user defined search be executed-->
+        <button onclick = "search()">Search!</button>
+    </div>
+
+    <div id = "output"></div>
+
+    <script>
+        //Same way of collecting data as the stocks portion of the website for ease of access. Different API's but similar ways of calling. 
+        function search(){
+            var s = document.getElementById("input").value.toUpperCase();
+            //Fetches the data from my API that will later be used
+            fetch(`https://financialmodelingprep.com/api/v3/search?query=${s}&apikey=7nKkIwBXZxMBDTdaHJ7IhWhZ6Feane7a`)
+                //Stores data
+                .then(response => response.json())
+                //Pushes data to be executed and printed in their respectibe spots on the webpage
+                .then(data => {
+                    p(data);
+                })
+        }
+        //Same as previos page other than the data thats being collected
+        function p(data){
+            console.log(data);
+            var output = document.getElementById("output");
+            output.innerHTML = "";
+
+            //Error message in the case that no information is printed or the user defined symbol does not exist in the API
+            if(!data || data.length === 0){
+                error('No data was found for this stock');
+                return;
+            }
+
+            //Variables to access the memory based on the type. stock ius the base variable that will be called with the rest and paired with their respective data from the API.
+            //Also the part of JS that differs most from page 2 of the webpage 
+            var stock = data[0];
+            var name = stock.name;
+            var currency = stock.currency;
+            var exchange = stock.stockExchange;
+            var short = stock.exchangeShortName
+
+            //takes the collected data and prints using the css to format it.
+            var print = `
+            <h2>${name}</h2>
+            <p><b><u>Currency System:</u></b>${currency}</p>
+            <p><b><u>Exchange:</u></b>${exchange}</p>
+            <p><b><u>Short Name:</u></b>${short}</p>
+            `;
+            //part that gave me the most trouble because i didnt include this for a while and the webpage was not printing properly. 
+            output.innerHTML = print;
+        }
+
+        //function for error message
+        function error(message){
+            var output = document.getElementById("output");
+            output.innerHTML = `<h3 style = "color: red;">${message}</h3>`;
+        }
+    </script>
+
+</body>
+
+
+
+
+
+</html>
